@@ -1,0 +1,250 @@
+
+<script>
+	// https://study.163.com/course/courseLearn.htm?courseId=1212825813#/learn/video?lessonId=1284244335&courseId=1212825813
+//21.小结
+//1初始化Git仓库的命令
+"git init"
+//2查看文件状态命令
+"git status"
+"git status -s"
+//一次性将文件加入暂存区
+"git add ."
+//将暂存区的文件提交到Git仓库的命令
+"git commit -m '提交消息'"
+
+
+//  Git快照类似于备份，版本切换特别快，空间换时间 
+
+//  Git管理三个区域，工作区、暂存区、Git仓库 
+//四种小状态:未跟踪(Untracked) => 未被Git管理 => 已被Git管理:Git管理三种状态 - (未修改Unmodified) 
+//  Git管理三种状态，已修改modified、已暂存staged、已提交committed 
+
+
+// 安装Git：https://git-scm.com/download/win
+
+// 配置用户名
+//配置一次永久生效
+"git config --global user.name "itheima""
+// 配置邮箱地址
+//配置一次永久生效
+"git config --global user.email "itheima@itcast.cn""
+// 全局配置文件
+"users/用户名文件夹/.gitconfig"
+//查看所有全局配置项
+"git config --list --global"
+//查看指定全局配置项
+"git config user.name"
+"git config user.email"
+//帮助手册-浏览器
+"git help config"
+//帮助手册-终端
+"git  conf.ig -h"
+//1.是标题，1是副标题
+//1.获取仓库两种方式,1从本地将目录转化为仓库,2从服务器克隆一个
+//2.在现有目录中初始化仓库，1在要作为git仓库的文件夹内鼠标右键打开Git Bash，2通过Git Bash执行git init 命令将当前的目录转化为Git仓库,git init会创建一个名为.git的隐藏目录,没有.git在查看那打开隐藏显示
+//.git的隐藏目录里面包含初始必要文件  .git的隐藏目录被删除.git仓库就被销毁了
+
+//3.工作区中文件的4种状态
+//四种小状态:未跟踪(Untracked) => 未被Git管理 => 已被Git管理:Git管理三种状态 - (未修改Unmodified) 
+//  Git管理三种状态，已修改modified、已暂存staged、已提交committed 
+//4.检查查看文件状态
+"git status"
+
+//5.以精简的方式显示文件状态
+// ??index.html表示文件未跟踪(??)
+"git status --short"
+"git status -s"//-s 是--short的简写
+??   "??index.html"//未跟踪文件  ??
+ 
+//6.跟踪新文件
+//查看状态绿色A 表示已新添加到暂存区
+//把已修改的文件放入到暂存区
+//git add将所有新增和已修改的文件统一的加入到暂存区里
+
+add "git add index.html"//开始跟踪一个文件
+A    "A index.html"//查看状态绿色A 表示已新添加到暂存区，文件已跟踪并处于暂存状态
+
+//快速清空终端
+"clear"
+//7.提交更新命令,将暂存区文件提交到Git仓库中持久保存
+"git commit -m "message"" //[message] 可以是一些备注信息。
+//提交暂存区的指定文件到仓库区：
+"git commit [file1] [file2] ... -m [message]"
+
+//8.对已提交文件进行修改
+//已修改未被放到暂存区是红色的
+M   "M(红色) index.html"
+//对已提交的文件进行修改
+//已修改已放到暂存区是绿色的
+M   "M(绿色) index.html"
+
+//9.暂存已修改文件 git add
+//1可以用它开始跟踪新文件，2把已跟踪的、且已修改的文件放到暂存区，3把有冲突文件标记为已解决状态
+//git add将所有新增和已修改的文件统一的加入到暂存区里
+add  "git add index.html"//把已修改文件放入到暂存区
+
+//10.提交已暂存文件
+//再次运行  git commit -m "提交消息" 命令，即可将暂存区中记录的index.html 的快照，提交到Git仓库中进行保存
+"git commit -m [message]" //[message] 可以是一些备注信息。
+//提交暂存区的指定文件到仓库区：
+"git commit [file1] [file2] ... -m [message]"
+
+//11.撤销对文件的修改，谨慎使用
+// ！！谨慎使用 ！！把对工作区中对应文件的修改，还原成Git仓库中所保存的版本，所有修改都会消失，无法恢复，谨慎使用
+//撤销操作的本质：用git仓库中保存的文件,覆盖工作区中指定的文件
+"git checkout -- index.html"
+
+//12.向暂存区一次性添加多个文件，将新增和修改过后的文件都添加到暂存区
+"git add ."
+
+//13.取消暂存文件,
+//从暂存区移除对应暂存文件
+"git reset HEAD 要移除的文件"
+"git reset HEAD index.html"
+"git reset HEAD ."//移除暂存区中所有文件
+
+//14.跳过暂存区域
+//通过 -a 跳过暂存区
+"git commit -a -m '描述信息'"
+
+//15.移除文件
+//从Git仓库中移除文件的方式有两种
+//1从Git仓库和工作区中 同时 移除对应文件，
+"git rm -f index.js"
+//2只从 Git 仓库中移除 对应文件 ，但保留工作区中 index.css 文件
+"git rm --cached index.css"
+//D index.js 文件被标记删除了，下次提交后工作区和仓库将不再包含index.js文件了
+D "D index.js"
+
+//16.忽略文件
+//创建一个名为.gitignore的配置文件，列出要忽略的文件匹配模式
+#   //以 # 开头的是注释
+/   //以 / 结尾的是目录
+/   //以 / 开头防止递归
+!   //以 ! 开头表示取反
+glob模式   //可以使用glob模式进行文件和文件夹的匹配(glob指简化了的正则)
+
+//17.glob模式
+//所谓的glob模式是指简化了的正则
+*   //1 星号* 匹配 零个或多个任意字符
+[]  //2 [abc] 匹配任何一个列在方括号中的字符(此案例只匹配一个a或匹配一个b或匹配一个c)
+?   //3 问号 ？只匹配任意一个字符
+-   //4 在方括号中使用 短划线 分隔两个字符，表示所有在这两个字符范围内的都可以匹配(比如[0-9]表示匹配所有0-9的数字)
+**  //5 两个 ** 表示匹配任意中间目录(比如a/**/z可以匹配a/z、a/b/z或a/b/c/z等)
+
+//18. .gitignore文件例子
+//# 忽略所有 .a 文件
+//d对。html文件好像无效
+"*.a"
+//# 但跟踪所有的 lib.a，即使你在前面忽略了 .a 文件
+!lib.a
+//# 只忽略当前目录下的 TODO 文件，而不忽略 subdir/TODO,不忽略 其他 目录下的TODO文件
+/TODO
+//# 忽略任何目录下名为 build 的文件夹,所有叫bulid的文件都忽略
+build/
+//# 忽略 doc/notes.txt,但不忽略doc/server/arch.txt
+//只忽略当前目录下的文件，不忽略子文件夹的文件
+doc/*.txt//忽略当前目录下 .txt 文件，不会忽略子目录下的 .txt 文件
+//# 忽略 doc/ 目录及其所有子目录下的 .pdf 文件
+doc/**/*.pdf   //只要 .pdf 属于 doc 的子目录就会进行忽略，不论是嵌套了多少层
+
+//19.查看提交历史 git log
+//# 按先后顺序列出所有提交历史，最近的提交排在最上面
+"git log"//按 Q 自动退出
+//# 只展示最新的两条提交历史，数字可以按需进行填写
+"git log -2"
+//# 在一行上展示最近两条提交历史的信息
+"git log -2 --pretty=oneline"
+//# 在一行上展示最近两条提交历史的信息，并自定义输出的格式
+自定义提交历史   //# %h 提交的简写哈希值， %an 作者的名字， %ar 作者修订的日期，按多久以前的方式显示， %s提交说明
+"git log -2 --pretty=format:'%h | %an | %ar | %s '"//漂亮的=格式
+
+//20.回退到指定版本
+//# 在一行上展示所有的提交历史
+"git log --pretty=online"
+//# 使用 git reset --hard 命令，根据指定的提交 ID 回到指定版本。(变成旧版本)
+//ID 回到指定版本后，"git log --pretty=online"只能查看指定版本
+"git reset --hard <ComitID>"//唯一标识<ComitID>
+//# 在旧版本中使用 git reflog --pretty=oneline 命令，查看命令操作的历史
+//ID 回到指定版本后，"git log --pretty=online"只能查看指定版本
+"git reflog --pretty=oneline"//查看所有版本历史
+//# 再次根据最新的提交 ID ，跳转到最新的版本
+"git reset --hard <CommitID>"
+
+//21.小结
+//1初始化Git仓库的命令
+"git init"
+//2查看文件状态命令
+"git status"
+"git status -s"
+//一次性将文件加入暂存区
+"git add ."
+//将暂存区的文件提交到Git仓库的命令
+"git commit -m '提交消息'"
+
+
+//Day2
+//01.开源相关的概念
+//常见开源协议,
+// GPL具有传染性的一种开源协议，不允许修改后和衍生的代码作为闭源的商业软件作为发布和销售，
+// 使用GPL著名软件Linux
+"常见开源协议 GPL、MIT"
+// MIT是目前限制最少的协议，唯一的条件：在修改后的代码或者发行包中，必须包含原作者的许可信息
+// 使用MIT软件项目的有：jquery、node.js
+
+
+//SSH key操作设置本地仓库和GitHub之间免登录的加密数据传输
+// SSH key的两部分组成
+// 01.id_rsa (私钥文件，存放于客户端的电脑中即可)
+// 02.id_rsa.pud (公钥文件，需要配置到GitHub中)
+
+//6.生成SSH key
+		1.打开Git Bash
+		2.运行ssh-keygen -t rsa -b 4096 -C"your_email@example.com"
+		将your_email@example.com替换为注册Github账号时填写的邮箱
+		ssh-keygen -t rsa -b 4096 -C "1711815053.qq.com"
+		3.连续敲击3次回车，即可在 C：\User\用户名文件夹\.ssh目录中生成 id_rsa 和 id_rsa.pub文件。
+		//4次回车？C:\Users\YZH\.ssh
+//7.配置SSH key
+		01.使用记事本打开id_rsa.pub文件,复制里面文本的内容
+		02.在浏览器中登录Github，点击头像->Settings->SSH and GPU Key ->New SSH key
+		03.将id_rsa.push文件中的内容，粘贴到Key对应的文本框中
+		04.在Title文本框中任意填写一个名称，来标识这个Key从何而来
+
+//8.检测Github的SSH key 是否配置成功
+		//01打开Github，输入如下的命令并回车执行
+			ssh -T git@github.com
+			输入(yes/no)
+			如果出现 Hi uername .......自己的用户名，说明 SSH key 配置成功
+			//Hi YangZuHu! You've successfully authenticated, but GitHub does not provide shell access.
+
+//9基于 SSH 将本地仓库上传到 Github
+		//查看远程仓库信息
+			git remote -v
+		//01.初始化仓库
+			git init
+		//02.检查状态
+			git status -s
+		//03.将文件加入到暂存区
+			git add .
+		//04.检查文件，查看最终状态
+			git status -s
+		//05.提交到本地
+			git commit -m "初始化项目"
+		//06.关联本地仓库和远程仓库
+			git remote add origin git@github.com:YangZuHu/project_03.git
+		//07.将本地文件推送到Github上面
+			git branch -M main
+			git push -u origin main//
+//10.将远程仓库克隆到本地
+		//01打开Github，输入如下的命令并回车执行
+			git clone 远程仓库的地址//git@github.com:YangZuHu/project_03.git
+
+
+
+
+
+
+
+</script>
+<body><h1>Git笔记</h1></body>
